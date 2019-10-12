@@ -4,13 +4,13 @@
   ],
   "subPackages": [],
   "window": {
-    "navigationBarBackgroundColor": "#0081ff",
-    "navigationBarTitleText": "ColorUi for UniApp",
-    "navigationStyle": "custom",
-    "navigationBarTextStyle": "white"
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "uni-app",
+    "navigationBarBackgroundColor": "#F8F8F8",
+    "backgroundColor": "#F8F8F8"
   },
   "usingComponents": {
-    "basics": "/pages/basics/home",
     "cu-custom": "/colorui/components/cu-custom"
-  }
+  },
+  "sitemapLocation": "sitemap29.json"
 }

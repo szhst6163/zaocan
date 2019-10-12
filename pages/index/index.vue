@@ -1,7 +1,6 @@
 <template>
 	<view>
 		<basics v-if="PageCur=='basics'"></basics>
-		<components v-if="PageCur=='component'"></components>
 		<plugin v-if="PageCur=='plugin'"></plugin>
 		<view class="cu-bar tabbar bg-white shadow foot">
 			<view class="action" @click="NavChange" data-cur="basics">
@@ -21,7 +20,11 @@
 </template>
 
 <script>
+	import basics from '../../pages/basics/home.vue'
   export default {
+	  components:{
+		  basics:basics
+	  },
     data() {
       return {
         PageCur: 'basics'

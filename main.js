@@ -1,10 +1,6 @@
 import Vue from 'vue'
 import App from './App'
 
-import basics from './pages/basics/home.vue'
-
-Vue.component('basics',basics)
-
 import cuCustom from './colorui/components/cu-custom.vue'
 
 Vue.component('cu-custom',cuCustom)
