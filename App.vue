@@ -34,6 +34,7 @@
           traceUser: true,
         });
       }
+      wx.globalData = {}
 		},
 		onShow: function() {
 		},

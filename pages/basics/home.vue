@@ -2,10 +2,7 @@
 	<view>
 		<view class="VerticalBox">
 			<scroll-view class="VerticalNav nav" scroll-y scroll-with-animation>
-				<view class="cu-item" :class="index==tabCur?'text-green cur':''" v-for="(item,index) in tags" :key="index" @tap="TabSelect"
-							:data-id="index">
-					Tab-{{item.name}}
-				</view>
+				<view class="cu-item" :class="index==tabCur?'text-green cur':''" v-for="(item,index) in tags" :key="index" @tap="TabSelect" :data-id="index">{{item.name}}</view>
 			</scroll-view>
 			<scroll-view class="VerticalMain" scroll-y scroll-with-animation>
 				<view class="padding-top padding-lr" v-for="(item,index) in list" :key="index" :id="'main-'+index">
@@ -33,7 +30,7 @@
 				</view>
 			</scroll-view>
 		</view>
-    <button class="btn" @tap="submit" type="primary">提交</button>
+    <button v-if="total" class="btn" @tap="submit" type="primary">提交</button>
   </view>
 </template>
 
@@ -47,42 +44,48 @@
     data() {
       return {
         list: [],
-				tags:[{name:'餐厅A'},{name:'餐厅B'}],
+				tags:[],
         tabCur: 0,
-				listData:[]
+				listData:[[]]
       };
     },
     computed: {
-      // total() {
-      //   let data = this.listData[0].map(res => res.num)
-      //   let num = 0
-      //   data.forEach(res => {
-      //     num += res
-      //   })
-      //   return num
-      // }
+      total() {
+        let data = this.listData[0].map(res => res.num)
+        let num = 0
+        data.forEach(res => {
+          num += res
+        })
+        return num
+      }
     },
     mounted() {
-      uni.showLoading({
-        title: '加载中...',
-        mask: true
-      });
-      let list = [{}];
-      for (let i = 0; i < 26; i++) {
-        list[i] = {};
-        list[i].name =  '套餐' + i;
-        list[i].id = i;
-        list[i].kouwei = true;
-        list[i].isHot = '辣';
-        list[i].num = 0
-      }
-      this.listData[0] = list;
-      this.listData[1] = [{name:"套餐12"}];
-      this.list = this.listData[0];
-      uni.hideLoading()
       this.onGetOpenid()
+      this.init()
     },
     methods: {
+      init() {
+        uni.showLoading({
+          title: '加载中...',
+          mask: true
+        });
+
+        wx.cloud.callFunction({
+          name: 'getList',
+          data: {},
+          success: res => {
+						uni.hideLoading()
+            console.log(res)
+            this.listData = res.result.data.map(res => res.foods)
+            this.list = this.listData[0]
+            this.tags = res.result.data
+          },
+          fail: err => {
+						uni.hideLoading()
+            console.error('[云函数] [getList] 调用失败', err)
+          }
+        })
+      },
       onGetOpenid() {
         // 调用云函数
         wx.cloud.callFunction({
@@ -90,16 +93,10 @@
           data: {},
           success: res => {
             console.log('[云函数] [login] user openid: ', res.result.openid)
-            app.globalData.openid = res.result.openid
-            wx.navigateTo({
-              url: '../userConsole/userConsole',
-            })
+            wx.globalData.openid = res.result.openid
           },
           fail: err => {
             console.error('[云函数] [login] 调用失败', err)
-            wx.navigateTo({
-              url: '../deployFunctions/deployFunctions',
-            })
           }
         })
       },
@@ -176,7 +173,7 @@
 	}
 
 	.VerticalNav{
-		height: calc(100vh - 200upx + env(safe-area-inset-bottom) / 2);
+		height: calc(100vh - 300upx + env(safe-area-inset-bottom) / 2);
 	}
 	.VerticalMain {
 		/*background-color: #f1f1f1;*/
