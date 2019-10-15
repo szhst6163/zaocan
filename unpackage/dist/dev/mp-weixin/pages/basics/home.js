@@ -105,7 +105,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var uniNumberBox = function uniNumberBox() {return __webpack_require__.e(/*! import() | colorui/components/uni-number-box */ "colorui/components/uni-number-box").then(__webpack_require__.bind(null, /*! @/colorui/components/uni-number-box.vue */ 35));};var _default =
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var uniNumberBox = function uniNumberBox() {return __webpack_require__.e(/*! import() | colorui/components/uni-number-box */ "colorui/components/uni-number-box").then(__webpack_require__.bind(null, /*! @/colorui/components/uni-number-box.vue */ 33));};var _default =
 
 
 
@@ -187,8 +187,29 @@ __webpack_require__.r(__webpack_exports__);
     this.listData[1] = [{ name: "套餐12" }];
     this.list = this.listData[0];
     uni.hideLoading();
+    this.onGetOpenid();
   },
   methods: {
+    onGetOpenid: function onGetOpenid() {
+      // 调用云函数
+      wx.cloud.callFunction({
+        name: 'login',
+        data: {},
+        success: function success(res) {
+          console.log('[云函数] [login] user openid: ', res.result.openid);
+          app.globalData.openid = res.result.openid;
+          wx.navigateTo({
+            url: '../userConsole/userConsole' });
+
+        },
+        fail: function fail(err) {
+          console.error('[云函数] [login] 调用失败', err);
+          wx.navigateTo({
+            url: '../deployFunctions/deployFunctions' });
+
+        } });
+
+    },
     submit: function submit() {
       var data = this.listData[0].filter(function (res) {return res.num;});
       var str = '';

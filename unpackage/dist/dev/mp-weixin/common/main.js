@@ -122,6 +122,14 @@ var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ 2));function _i
 
       } });
 
+    if (!wx.cloud) {
+      console.error('请使用 2.2.3 或以上的基础库以使用云能力');
+    } else {
+      wx.cloud.init({
+        env: 'zaocan-uyz2s',
+        traceUser: true });
+
+    }
   },
   onShow: function onShow() {
   },
