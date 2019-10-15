@@ -1,4 +1,6 @@
 {
-  "usingComponents": {},
+  "usingComponents": {
+    "uni-number-box": "/colorui/components/uni-number-box"
+  },
   "component": true
 }

@@ -15,29 +15,35 @@
 					</view>
 					<view class="cu-list menu-avatar">
 						<view class="cu-item">
-							<view class="cu-avatar round lg" style="background-image:url(https://ossweb-img.qq.com/images/lol/web201310/skin/big10001.jpg);"></view>
-							<view class="content">
-								<view class="text-grey">凯尔</view>
-								<view class="text-gray text-sm flex">
-									<text class="text-cut">
-										<text class="cuIcon-infofill text-red  margin-right-xs"></text>
-										我已天理为凭，踏入这片荒芜，不再受凡人的枷锁遏制。我已天理为凭，踏入这片荒芜，不再受凡人的枷锁遏制。
-									</text> </view>
+							<view>
+								<uni-number-box
+									class="step"
+									:min="0"
+									v-model="list[index]['num']"
+								></uni-number-box>
 							</view>
-							<view class="action">
-								<view class="text-grey text-xs">22:20</view>
-								<view class="cu-tag round bg-grey sm">5</view>
+							<view v-if="item.kouwei">
+								<radio-group class="radiosGroup">
+									<label @tap="radioChange(item,'辣')" class="radio"><radio name="la" :checked="item.isHot === '辣'" value="辣" />辣</label>
+									<label @tap="radioChange(item,'不辣')" class="radio"><radio name="la" :checked="item.isHot === '不辣'" value="不辣" />不辣</label>
+								</radio-group>
 							</view>
 						</view>
 					</view>
 				</view>
 			</scroll-view>
 		</view>
-	</view>
+    <button class="btn" @tap="submit" type="primary">提交</button>
+  </view>
 </template>
 
 <script>
+  import uniNumberBox from '@/colorui/components/uni-number-box.vue'
+
   export default {
+    components: {
+      uniNumberBox
+    },
     data() {
       return {
         list: [],
@@ -46,23 +52,57 @@
 				listData:[]
       };
     },
+    computed: {
+      // total() {
+      //   let data = this.listData[0].map(res => res.num)
+      //   let num = 0
+      //   data.forEach(res => {
+      //     num += res
+      //   })
+      //   return num
+      // }
+    },
     mounted() {
       uni.showLoading({
         title: '加载中...',
         mask: true
       });
       let list = [{}];
-      for (let i = 1; i < 26; i++) {
+      for (let i = 0; i < 26; i++) {
         list[i] = {};
         list[i].name =  '套餐' + i;
         list[i].id = i;
+        list[i].kouwei = true;
+        list[i].isHot = '辣';
+        list[i].num = 0
       }
       this.listData[0] = list;
-      this.listData[1] = [{name:"套餐12",name:'套餐13'}];
+      this.listData[1] = [{name:"套餐12"}];
       this.list = this.listData[0];
       uni.hideLoading()
     },
     methods: {
+      submit() {
+        let data = this.listData[0].filter(res => res.num)
+        let str = ''
+        data.forEach(res => {
+          str += `${res.name}${res.isHot?`(${res.isHot})`:''}*${res.num};\n`
+        })
+        uni.showModal({
+          title: '提示',
+          content: `你点了${str}`,
+          success: function (res) {
+            if (res.confirm) {
+              console.log(data)
+            }
+          }
+        });
+      },
+      radioChange(item, la) {
+        this.$nextTick(()=>{
+          item.isHot = la
+        })
+			},
       TabSelect(e) {
         this.tabCur = e.currentTarget.dataset.id;
         this.list = this.listData[this.tabCur]
@@ -79,7 +119,9 @@
 		position: fixed;
 		z-index: 99;
 	}
-
+  .btn{
+    margin-top:10upx;
+  }
 	.VerticalNav.nav {
 		width: 200upx;
 		white-space: initial;
@@ -93,10 +135,6 @@
 		border: none;
 		height: 50px;
 		position: relative;
-	}
-
-	.VerticalNav.nav .cu-item.cur {
-		background-color: #f1f1f1;
 	}
 
 	.VerticalNav.nav .cu-item.cur::after {
@@ -117,12 +155,17 @@
 	}
 
 	.VerticalNav{
-		height: calc(100vh - 100upx + env(safe-area-inset-bottom) / 2);
+		height: calc(100vh - 200upx + env(safe-area-inset-bottom) / 2);
 	}
 	.VerticalMain {
 		/*background-color: #f1f1f1;*/
-		height: calc(100vh - 100upx + env(safe-area-inset-bottom) / 2);
+		height: calc(100vh - 200upx + env(safe-area-inset-bottom) / 2);
 		flex: 1;
-		padding-bottom:20upx;
+	}
+	.radiosGroup{
+		width: 200upx;
+		display: flex;
+		justify-content: space-around;
+		align-items: center;
 	}
 </style>

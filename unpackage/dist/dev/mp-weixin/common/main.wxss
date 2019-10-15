@@ -1,9 +1,9 @@
 /*
   ColorUi for uniApp  v2.1.6 | by 文晓港 2019-05-31 10:44:24
-  仅供学习交流，如作它用所承受的法律责任一概与作者无关  
-  
-  *使用ColorUi开发扩展与插件时，请注明基于ColorUi开发 
-  
+  仅供学习交流，如作它用所承受的法律责任一概与作者无关
+
+  *使用ColorUi开发扩展与插件时，请注明基于ColorUi开发
+
   （QQ交流群：240787041）
 */
 
@@ -1214,7 +1214,6 @@ to {
 	overflow: hidden;
 }
 .cu-list.menu-avatar>.cu-item {
-	position: relative;
 	display: -webkit-box;
 	display: -webkit-flex;
 	display: -ms-flexbox;
@@ -1222,10 +1221,9 @@ to {
 	padding-right: 10rpx;
 	height: 140rpx;
 	background-color: #ffffff;
-	-webkit-box-pack: end;
-	-webkit-justify-content: flex-end;
-	    -ms-flex-pack: end;
-	        justify-content: flex-end;
+	-webkit-justify-content: space-around;
+	    -ms-flex-pack: distribute;
+	        justify-content: space-around;
 	-webkit-box-align: center;
 	-webkit-align-items: center;
 	    -ms-flex-align: center;

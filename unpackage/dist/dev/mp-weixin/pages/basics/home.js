@@ -105,46 +105,52 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;} //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-var _default =
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var uniNumberBox = function uniNumberBox() {return __webpack_require__.e(/*! import() | colorui/components/uni-number-box */ "colorui/components/uni-number-box").then(__webpack_require__.bind(null, /*! @/colorui/components/uni-number-box.vue */ 35));};var _default =
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 {
+  components: {
+    uniNumberBox: uniNumberBox },
+
   data: function data() {
     return {
       list: [],
@@ -153,23 +159,57 @@ var _default =
       listData: [] };
 
   },
+  computed: {
+    // total() {
+    //   let data = this.listData[0].map(res => res.num)
+    //   let num = 0
+    //   data.forEach(res => {
+    //     num += res
+    //   })
+    //   return num
+    // }
+  },
   mounted: function mounted() {
     uni.showLoading({
       title: '加载中...',
       mask: true });
 
     var list = [{}];
-    for (var i = 1; i < 26; i++) {
+    for (var i = 0; i < 26; i++) {
       list[i] = {};
       list[i].name = '套餐' + i;
       list[i].id = i;
+      list[i].kouwei = true;
+      list[i].isHot = '辣';
+      list[i].num = 0;
     }
     this.listData[0] = list;
-    this.listData[1] = [_defineProperty({ name: "套餐12" }, "name", '套餐13')];
+    this.listData[1] = [{ name: "套餐12" }];
     this.list = this.listData[0];
     uni.hideLoading();
   },
   methods: {
+    submit: function submit() {
+      var data = this.listData[0].filter(function (res) {return res.num;});
+      var str = '';
+      data.forEach(function (res) {
+        str += "".concat(res.name).concat(res.isHot ? "(".concat(res.isHot, ")") : '', "*").concat(res.num, ";\n");
+      });
+      uni.showModal({
+        title: '提示',
+        content: "\u4F60\u70B9\u4E86".concat(str),
+        success: function success(res) {
+          if (res.confirm) {
+            console.log(data);
+          }
+        } });
+
+    },
+    radioChange: function radioChange(item, la) {
+      this.$nextTick(function () {
+        item.isHot = la;
+      });
+    },
     TabSelect: function TabSelect(e) {
       this.tabCur = e.currentTarget.dataset.id;
       this.list = this.listData[this.tabCur];

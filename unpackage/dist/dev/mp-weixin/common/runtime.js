@@ -104,11 +104,11 @@
 /******/
 /******/
 /******/ 		// mini-css-extract-plugin CSS loading
-/******/ 		var cssChunks = {"pages/basics/home":1};
+/******/ 		var cssChunks = {"pages/basics/home":1,"colorui/components/uni-number-box":1};
 /******/ 		if(installedCssChunks[chunkId]) promises.push(installedCssChunks[chunkId]);
 /******/ 		else if(installedCssChunks[chunkId] !== 0 && cssChunks[chunkId]) {
 /******/ 			promises.push(installedCssChunks[chunkId] = new Promise(function(resolve, reject) {
-/******/ 				var href = "" + ({"colorui/components/cu-custom":"colorui/components/cu-custom","pages/basics/home":"pages/basics/home"}[chunkId]||chunkId) + ".wxss";
+/******/ 				var href = "" + ({"colorui/components/cu-custom":"colorui/components/cu-custom","pages/basics/home":"pages/basics/home","colorui/components/uni-number-box":"colorui/components/uni-number-box"}[chunkId]||chunkId) + ".wxss";
 /******/ 				var fullhref = __webpack_require__.p + href;
 /******/ 				var existingLinkTags = document.getElementsByTagName("link");
 /******/ 				for(var i = 0; i < existingLinkTags.length; i++) {

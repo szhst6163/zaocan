@@ -3,6 +3,9 @@
 		position: fixed;
 		z-index: 99;
 }
+.btn{
+    margin-top:10rpx;
+}
 .VerticalNav.nav {
 		width: 200rpx;
 		white-space: initial;
@@ -15,9 +18,6 @@
 		border: none;
 		height: 50px;
 		position: relative;
-}
-.VerticalNav.nav .cu-item.cur {
-		background-color: #f1f1f1;
 }
 .VerticalNav.nav .cu-item.cur::after {
 		content: "";
@@ -38,15 +38,28 @@
 		display: flex;
 }
 .VerticalNav{
-		height: calc(100vh - 100rpx + env(safe-area-inset-bottom) / 2);
+		height: calc(100vh - 200rpx + env(safe-area-inset-bottom) / 2);
 }
 .VerticalMain {
 		/*background-color: #f1f1f1;*/
-		height: calc(100vh - 100rpx + env(safe-area-inset-bottom) / 2);
+		height: calc(100vh - 200rpx + env(safe-area-inset-bottom) / 2);
 		-webkit-box-flex: 1;
 		-webkit-flex: 1;
 		    -ms-flex: 1;
 		        flex: 1;
-		padding-bottom:20rpx;
+}
+.radiosGroup{
+		width: 200rpx;
+		display: -webkit-box;
+		display: -webkit-flex;
+		display: -ms-flexbox;
+		display: flex;
+		-webkit-justify-content: space-around;
+		    -ms-flex-pack: distribute;
+		        justify-content: space-around;
+		-webkit-box-align: center;
+		-webkit-align-items: center;
+		    -ms-flex-align: center;
+		        align-items: center;
 }
 
