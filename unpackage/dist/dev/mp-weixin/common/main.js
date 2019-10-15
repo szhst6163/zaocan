@@ -124,7 +124,6 @@ var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ 2));function _i
 
   },
   onShow: function onShow() {
-    console.log('App Show');
   },
   onHide: function onHide() {
     console.log('App Hide');

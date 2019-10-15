@@ -6,7 +6,7 @@
 	"setting": {
 		"urlCheck": false
 	},
-	"compileType": "miniprogram",
+	"compileType": "miniprograms",
 	"libVersion": "2.7.0",
 	"appid": "wx078caa97f2013a0a",
 	"projectname": "zaocan",
