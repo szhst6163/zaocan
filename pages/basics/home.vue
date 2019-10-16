@@ -109,9 +109,25 @@
         uni.showModal({
           title: '提示',
           content: `你点了${str}`,
-          success: function (res) {
+          success:(res) => {
+            uni.showLoading({mask:true})
             if (res.confirm) {
-              console.log(data)
+              wx.cloud.callFunction({
+                name: 'submit',
+                data:{list:data},
+                success: res => {
+                  uni.hideLoading()
+                  uni.showToast({
+                    title: '成功',
+                    icon:'success',
+                    duration: 1500
+                  })
+                },
+                fail: err => {
+                  uni.hideLoading()
+                  console.error('[云函数] [getList] 调用失败', err)
+                }
+              })
             }
           }
         });
@@ -138,7 +154,10 @@
 		z-index: 99;
 	}
   .btn{
-    margin-top:10upx;
+    position: fixed;
+    bottom:130upx;
+    width: 100%;
+    height: 98upx;
   }
 	.VerticalNav.nav {
 		width: 200upx;
@@ -170,14 +189,16 @@
 
 	.VerticalBox {
 		display: flex;
+		padding-bottom:98upx;
+		box-sizing: border-box;
 	}
 
 	.VerticalNav{
-		height: calc(100vh - 300upx + env(safe-area-inset-bottom) / 2);
+		height: calc(100vh - 250upx);
 	}
 	.VerticalMain {
 		/*background-color: #f1f1f1;*/
-		height: calc(100vh - 200upx + env(safe-area-inset-bottom) / 2);
+		height: calc(100vh - 250upx);
 		flex: 1;
 	}
 	.radiosGroup{

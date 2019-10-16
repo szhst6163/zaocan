@@ -129,7 +129,8 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var basics = function basics() {return __webpack_require__.e(/*! import() | pages/basics/home */ "pages/basics/home").then(__webpack_require__.bind(null, /*! ../../pages/basics/home.vue */ 26));};var _default =
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var basics = function basics() {return __webpack_require__.e(/*! import() | pages/basics/home */ "pages/basics/home").then(__webpack_require__.bind(null, /*! ../../pages/basics/home.vue */ 33));};var my = function my() {return __webpack_require__.e(/*! import() | pages/basics/my */ "pages/basics/my").then(__webpack_require__.bind(null, /*! ../../pages/basics/my.vue */ 21));};var _default =
+
 
 
 
@@ -154,7 +155,8 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 {
   components: {
-    basics: basics },
+    basics: basics,
+    my: my },
 
   data: function data() {
     return {

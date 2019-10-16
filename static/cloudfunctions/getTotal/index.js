@@ -14,5 +14,6 @@ exports.main = async (event, context) => {
       id
     })
     .get()
+  console.log(dbResult)
   return dbResult
 }
