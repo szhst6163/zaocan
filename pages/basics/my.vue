@@ -65,6 +65,15 @@
       this.initStore()
     },
     methods: {
+      copy() {
+        let str = ''
+        this.totalData.forEach(res => {
+          str += `${res.name}${res.isHot?`(${res.isHot})`:''}*${res.num};\n`
+        })
+        uni.setClipboardData({
+          data: str
+        });
+      },
       radioChange(e) {
         this.dialogData.storeId = e.detail.value
       },
@@ -86,15 +95,15 @@
           })
       },
       submitDialog(e) {
-        if (!this.dialogData.storeId) {
-          uni.showToast({
-            title: '请选择餐厅',
-            duration: 1500,
-            icon: 'none'
-          })
-          return
-        }
         if (e.type === 'OK') {
+          if (!this.dialogData.storeId) {
+            uni.showToast({
+              title: '请选择餐厅',
+              duration: 1500,
+              icon: 'none'
+            })
+            return
+          }
           uni.showLoading({mask: true});
           wx.cloud.callFunction({
             name: 'createNewOrder',
@@ -194,6 +203,8 @@
   }
   .radiosGroup{
     padding:20upx;
+    width: 100%;
+    box-sizing: border-box;
     .radio{
       margin: 10upx;
       width: 30%;
