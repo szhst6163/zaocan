@@ -13,7 +13,7 @@
 				<view class='cuIcon-cu-image'>
 					<image :src="'/static/tabbar/about' + [PageCur == 'my'?'_cur':''] + '.png'"></image>
 				</view>
-				<view :class="PageCur=='my'?'text-green':'text-gray'">我的</view>
+				<view :class="PageCur=='my'?'text-green':'text-gray'">订单</view>
 			</view>
 		</view>
 	</view>

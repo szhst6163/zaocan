@@ -7,16 +7,17 @@ cloud.init({
 // 云函数入口函数
 exports.main = async (event, context) => {
   const { ENV, OPENID, APPID } = cloud.getWXContext()
-  const db = cloud.database()
-  const _ = db.command
-  let list = event.list
-  list.forEach(res => {
-    res.openid = OPENID
-  })
-  await db.collection('total').doc('total')
+  await cloud.database().collection('total').doc('total')
     .update({
       data: {
-        list: _.push(list),
+        list: [],
+        date: new Date().getTime()
+      }
+    })
+  await cloud.database().collection('storeFocus').where({name:"focus"})
+    .update({
+      data: {
+        id: event.storeId
       }
     })
   return {code:0,msg:'成功'}
