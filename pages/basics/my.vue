@@ -44,6 +44,7 @@
     },
     data() {
       return {
+        isLock: false,
         totalData: [],
         dialogData: {
           storeId:''
@@ -65,6 +66,17 @@
       this.initStore()
     },
     methods: {
+      onTabItemTap() {
+        uni.pageScrollTo({scrollTop: 0, duration: 100})
+          .then(()=>{
+            uni.startPullDownRefresh()
+          })
+      },
+      onPullDownRefresh() {
+        if(this.isLock) return
+        this.totalData = []
+        this.init()
+      },
       copy() {
         let str = ''
         this.totalData.forEach(res => {
@@ -134,6 +146,8 @@
         });
       },
       init() {
+        if(this.isLock) return
+        this.isLock = true
         uni.showLoading({
           title: '加载中...',
           mask: true
@@ -143,12 +157,16 @@
           name: 'getTotal',
           data: {},
           success: res => {
+            this.isLock = false
 						uni.hideLoading()
+            uni.stopPullDownRefresh()
             this.totalData = res.result.data.total
             this.detail = res.result.data
           },
           fail: err => {
+            this.isLock = false
 						uni.hideLoading()
+            uni.stopPullDownRefresh()
             console.error('[云函数] [getTotal] 调用失败', err)
           }
         })
@@ -202,12 +220,14 @@
     }
   }
   .radiosGroup{
-    padding:20upx;
+    padding:0 20upx;
     width: 100%;
     box-sizing: border-box;
+    display: flex;
     .radio{
+      flex:1;
+      min-width: 33;
       margin: 10upx;
-      width: 30%;
       display: inline-block;
 
     }
