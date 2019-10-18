@@ -30,6 +30,19 @@
 				</view>
 			</scroll-view>
 		</view>
+		<view class="cu-modal" :class="{show:showDialog}">
+			<view class="cu-dialog">
+				<view class="cu-bar bg-white justify-end">
+					<view class="content">授权</view>
+					<view class="action" @tap="showDialog = false">
+						<text class="cuIcon-close text-red"></text>
+					</view>
+				</view>
+				<view class="padding-xl">
+					<button open-type="getUserInfo" @getuserinfo="bindGetUserInfo">授权登录</button>
+				</view>
+			</view>
+		</view>
 		<button v-if="total" class="btn" @tap="submit" type="primary">提交</button>
 	</view>
 </template>
@@ -47,7 +60,8 @@
         list: [],
         tags:[],
         tabCur: 0,
-        listData:[[]]
+        listData:[[]],
+        showDialog: false
       };
     },
     computed: {
@@ -63,8 +77,52 @@
     mounted() {
       this.onGetOpenid()
       this.init()
+			this.getUserInfo()
     },
     methods: {
+      bindGetUserInfo(e) {
+        if(e.detail.userInfo){
+          uni.showLoading({
+            title: '授权中...',
+            mask: true
+          });
+          wx.cloud.callFunction({
+            name: 'setUserInfo',
+            data: {data:e.detail.userInfo},
+            success: res => {
+              this.showDialog = false
+              uni.hideLoading()
+              uni.showToast({
+                title: '授权成功',
+                icon:'none',
+                duration: 1500
+              })
+            },
+            fail: err => {
+              uni.hideLoading()
+              console.error( err)
+            }
+          })
+        } else {
+          uni.showToast({
+            title: '授权失败',
+            icon:'none',
+            duration: 1500
+          })
+				}
+      },
+      showModal(e) {
+        this.showDialog = true
+      },
+      getUserInfo() {
+        uni.getSetting({
+					success: res => {
+            if (!res.authSetting['scope.userInfo']) {
+              this.showModal()
+            }
+					}
+				})
+			},
       init() {
         if(this.isLock) return
         this.isLock = true

@@ -18,10 +18,10 @@
       <button class="btn" @tap="copy">复制订单</button>
       <button class="btn" @tap="submit" type="primary">创建新订单</button>
     </view>
-    <uni-dialog title="选择餐厅" ref="popup" @clickHandle="submitDialog" :btns="dialogOpts.btns">
+    <uni-dialog title="请选择" ref="popup" @clickHandle="submitDialog" :btns="dialogOpts.btns">
       <view class="textArea-cont">
         <view class="desc">
-          <text>选择餐厅</text>
+          <text>请选择</text>
         </view>
         <view>
           <radio-group class="radiosGroup" @change="radioChange">
@@ -110,7 +110,7 @@
         if (e.type === 'OK') {
           if (!this.dialogData.storeId) {
             uni.showToast({
-              title: '请选择餐厅',
+              title: '请选择',
               duration: 1500,
               icon: 'none'
             })
