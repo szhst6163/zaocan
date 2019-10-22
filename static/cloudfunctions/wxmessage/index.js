@@ -7,7 +7,7 @@ exports.main = async (event, context) => {
   try {
     const result = await cloud.openapi.templateMessage.send({
       touser: event.openId, // 通过 getWXContext 获取 OPENID
-      page: 'index',
+      page: 'pages/basics/my',
       data: event.data,
       templateId: tid,
       formId: event.formId
