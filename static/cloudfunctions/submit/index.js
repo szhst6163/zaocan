@@ -9,9 +9,12 @@ exports.main = async (event, context) => {
   const { ENV, OPENID, APPID } = cloud.getWXContext()
   const db = cloud.database()
   const _ = db.command
+  let userInfo = await cloud.database().collection('userList').doc(OPENID).get()
   let list = event.list
   list.forEach(res => {
     res.openid = OPENID
+    res.headImg = userInfo.data.avatarUrl
+    res.userName = userInfo.data.nickName
   })
   await db.collection('total').doc('total')
     .update({

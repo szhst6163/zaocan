@@ -8,8 +8,16 @@
         </view>
         <view class="list-card">
           <view class="card-item" v-for="item in totalData">
-            <view>{{item.name}} {{item.isHot?`(${item.isHot})`:''}}</view>
-            <view>{{item.num}}</view>
+            <view class="card-item-2">
+              <view class="bold">{{item.name}} {{item.isHot?`(${item.isHot})`:''}}</view>
+              <view class="users">
+                <view class="user" v-for="user in item.users ">
+                  <view class="img"><image :src="user.img"></image></view>
+                  <view>{{user.userName}}</view>
+                </view>
+              </view>
+            </view>
+            <view class="bold">*{{item.num}}</view>
           </view>
         </view>
       </view>
@@ -157,6 +165,7 @@
           name: 'getTotal',
           data: {},
           success: res => {
+            console.log(res)
             this.isLock = false
 						uni.hideLoading()
             uni.stopPullDownRefresh()
@@ -186,6 +195,11 @@
 
 <style lang="scss" scoped>
   .body{
+    .bold{
+      font-weight: 600;
+      font-size: 28upx;
+      color: #14c197;
+    }
     .list-cont{
       background: #fff;
       .title{
@@ -200,12 +214,35 @@
         }
       }
       .list-card{
-        padding:20upx;
+        padding:0 20upx;
         .card-item{
           line-height: 60upx;
           justify-content: space-between;
           align-items: center;
           display: flex;
+          margin:20upx 0;
+          border-bottom:2upx solid #eaeaea;
+          .card-item-2{
+            .users{
+              display: flex;
+              .user{
+                width: 50upx;
+                margin:0 10upx;
+                font-size: 20upx;
+                .img{
+                  width: 50upx;
+                  height: 50upx;
+                  image{
+                    width: 100%;
+                    height: 100%;
+                    border-radius: 100%;
+
+                  }
+                }
+              }
+
+            }
+          }
         }
       }
     }

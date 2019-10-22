@@ -23,13 +23,17 @@ exports.main = async (event, context) => {
   list.forEach(res => {
     let d  = menu.filter(r => r.isHot === res.isHot && r.id === res.id)[0]
     if(d)d.num += res.num
+    if(!d.users){
+      d.users = []
+    }
+    d.users.push({img: res.headImg, userName: res.userName})
   })
   return {
     data:{
       total:menu.filter(res => res.num),
       time:totalListT.data[0].date,
       store:menuT.data[0].name,
-      tel:menuT.data[0].tel
+      tel:menuT.data[0].tel,
     }
   }
 }
