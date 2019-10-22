@@ -225,6 +225,7 @@
           .card-item-2{
             .users{
               display: flex;
+              flex-wrap: wrap;
               .user{
                 width: 50upx;
                 margin:0 10upx;
