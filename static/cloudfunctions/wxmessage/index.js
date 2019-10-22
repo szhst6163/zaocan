@@ -10,8 +10,7 @@ exports.main = async (event, context) => {
       page: 'index',
       data: event.data,
       templateId: tid,
-      formId: event.formId,
-      emphasisKeyword: 'keyword1.DATA'
+      formId: event.formId
     })
     // result 结构
     // { errCode: 0, errMsg: 'openapi.templateMessage.send:ok' }
