@@ -21,6 +21,7 @@
           </view>
         </view>
       </view>
+      <view class="totalPrice">总计：￥{{totalPrice}}</view>
     </view>
     <view class="btns">
       <button class="btn" @tap="copy">复制订单</button>
@@ -67,6 +68,13 @@
     computed: {
       time() {
         return formatDate(this.detail.time)
+      },
+      totalPrice(){
+        let num = 0
+        this.totalData.forEach(res => {
+          num += res.num * res.price
+        })
+        return num
       }
     },
     mounted() {
@@ -195,6 +203,13 @@
 
 <style lang="scss" scoped>
   .body{
+    .totalPrice{
+      padding:0 20upx;
+      color: #14c197;
+      line-height: 80upx;
+      text-align: right;
+      background: #fff;
+    }
     .bold{
       font-weight: 600;
       font-size: 28upx;
