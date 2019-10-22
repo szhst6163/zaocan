@@ -13,7 +13,7 @@
               <view class="users">
                 <view class="user" v-for="user in item.users ">
                   <view class="img"><image :src="user.img"></image></view>
-                  <view>{{user.userName}}</view>
+                  <view class="text">{{user.userName}}</view>
                 </view>
               </view>
             </view>
@@ -228,10 +228,18 @@
               .user{
                 width: 50upx;
                 margin:0 10upx;
-                font-size: 20upx;
+                font-size: 16upx;
+                overflow:hidden;
+                text-overflow:ellipsis;
+                white-space: nowrap;
                 .img{
                   width: 50upx;
                   height: 50upx;
+                  .text{
+                    overflow:hidden;
+                    text-overflow:ellipsis;
+                    white-space: nowrap;
+                  }
                   image{
                     width: 100%;
                     height: 100%;

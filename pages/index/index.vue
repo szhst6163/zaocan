@@ -43,7 +43,9 @@
 				</view>
 			</view>
 		</view>
-		<button v-if="total" class="btn" @tap="submit" type="primary">提交</button>
+		<form @submit="submit" report-submit="true">
+			<button v-if="total" class="btn"  formType="submit" type="primary">提交</button>
+		</form>
 	</view>
 </template>
 
@@ -163,7 +165,7 @@
           }
         })
       },
-      submit() {
+      submit(e) {
         let data = this.listData[0].filter(res => res.num)
         let str = ''
         data.forEach(res => {
@@ -177,7 +179,7 @@
               uni.showLoading({mask:true})
               wx.cloud.callFunction({
                 name: 'submit',
-                data:{list:data},
+                data:{list: data,formId: e.detail.formId},
                 success: res => {
                   uni.hideLoading()
                   uni.showToast({
